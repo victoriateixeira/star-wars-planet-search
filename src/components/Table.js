@@ -1,16 +1,27 @@
-import React, { useEffect, useContext } from 'react';
-import AppContext from '../context/AppContext';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-function Table() {
-  const { fetchPlanets, planets, isLoading } = useContext(AppContext);
+function Table({ planets }) {
+  const [searchName, setSearchName] = useState('');
 
-  useEffect(() => {
-    fetchPlanets();
-  }, [fetchPlanets]);
+  const filteredByName = planets.filter(
+    (planet) => planet.name.toLowerCase().includes(searchName),
+  );
 
-  if (isLoading) return <h1>Carregando...</h1>;
   return (
     <div>
+      <form>
+        <label htmlFor="filter">
+          <input
+            type="text"
+            name="filter"
+            placeholder="search"
+            data-testid="name-filter"
+            onChange={ (e) => setSearchName(e.target.value) }
+          />
+        </label>
+      </form>
+
       <table>
         <thead>
           <tr>
@@ -57,7 +68,7 @@ function Table() {
         </thead>
         <tbody>
           {
-            planets.map((planet) => (
+            filteredByName.map((planet) => (
               // const { name, diameter, climate, gravity, terrain, population, films, created, edited, url } = planet;
               <tr key={ planet.name }>
                 <td>{planet.name}</td>
@@ -83,4 +94,7 @@ function Table() {
   );
 }
 
+Table.propTypes = {
+  planets: PropTypes.arrayOf.isRequired,
+};
 export default Table;
