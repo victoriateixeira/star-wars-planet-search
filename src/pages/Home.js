@@ -7,7 +7,7 @@ function Home() {
 
   useEffect(() => {
     fetchPlanets();
-  }, [fetchPlanets]);
+  }, []);
 
   if (isLoading) return <h1>Carregando...</h1>;
   return (
