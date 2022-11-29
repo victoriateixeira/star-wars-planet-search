@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
-import Table from '../components/Table';
+// import Table from './Table';
+import Filters from './Filters';
 import AppContext from '../context/AppContext';
 
 function Home() {
@@ -12,7 +13,8 @@ function Home() {
   if (isLoading) return <h1>Carregando...</h1>;
   return (
     <div>
-      <Table planets={ planets } />
+      <Filters planets={ planets } />
+      {/* <Table planets={ planets } /> */}
 
     </div>
   );
