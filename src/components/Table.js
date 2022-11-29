@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { listenerCount } from 'process';
 
 function Table({ planets }) {
   const columns = ['Population',
@@ -13,7 +12,7 @@ function Table({ planets }) {
   const [searchName, setSearchName] = useState('');
   const [selectedColumn, setSelectedColumn] = useState('Population');
   const [operator, setOperator] = useState('maior que');
-  const [numberInput, setNumberInput] = useState(null);
+  const [numberInput, setNumberInput] = useState(0);
   const [appliedFilters, setAppliedFilters] = useState([]);
   const [availableColumns, setAvailableColumns] = useState([...columns]);
 
@@ -57,13 +56,13 @@ appliedFilters.filter((filter, index) => index !== e.target.id);
     handleAddAppliedFilters();
     switch (operator) {
       case 'maior que':
-        setFilteredPlanets(filteredPlanets.filter((planet) => planet[selectedColumn] > numberInput));
+        setFilteredPlanets(filteredPlanets.filter((planet) => planet[selectedColumn] > Number(numberInput)));
     break;
       case 'menor que':
-        setFilteredPlanets(filteredPlanets.filter((planet) => planet[selectedColumn] < numberInput));
+        setFilteredPlanets(filteredPlanets.filter((planet) => planet[selectedColumn] < Number(numberInput)));
     break;
      default:
-        setFilteredPlanets(filteredPlanets.filter((planet) => planet[selectedColumn] === numberInput))
+        setFilteredPlanets(filteredPlanets.filter((planet) => planet[selectedColumn] === Number(numberInput)))
         break;
     }
   }

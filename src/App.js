@@ -1,15 +1,16 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
 import './App.css';
+
+import AppProvider from './context/AppProvider';
 import Home from './pages/Home';
+
 
 function App() {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" render={ (props) => <Home { ...props } /> } />
-      </Switch>
-    </div>
+    <AppProvider>
+      <Home />
+    </AppProvider>
+ 
   );
 }
 
