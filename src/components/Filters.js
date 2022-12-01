@@ -21,7 +21,7 @@ function Filters({ planets }) {
   // const [availableSortColumns, setAvailableSortColumns] = useState([...columns]);
   // const [selectedSortColumn, setSelectedSortColumn] = useState('population');
   // const [selectedSortType, setSelectedSortType] = useState('');
-  const [order, setOrder] = useState([]);
+  // const [order, setOrder] = useState({column: 'population', sort: 'ASC'});
   useEffect(() => {
     const filteredName = planets.filter(
       (planet) => planet.name.toLowerCase().includes(searchName),
@@ -85,22 +85,22 @@ function Filters({ planets }) {
     setSearchName('');
     setAvailableColumns([...columns]);
   };
-  const handleOrderChange = ({ target: { value, name } }) => {
-    setOrder((prevOrder) => ({ ...prevOrder, [name]: value }));
-  };
-  const handleSort = () => {
-    if (order.sort === 'ASC') {
-      const sortedPlanets = filteredPlanets
-        .sort((a, b) => Number(a[order.column]) - Number(b[order.column]));
-      // return sortedPlanets;
-      setFilteredPlanets(sortedPlanets);
-    } if (order.sort === 'DESC') {
-      const sortedPlanets = filteredPlanets
-        .sort((a, b) => Number(b[order.column]) - Number(a[order.column]));
-      // return sortedPlanets;
-      setFilteredPlanets(sortedPlanets);
-    }
-  };
+  // const handleOrderChange = ({ target: { value, name } }) => {
+  //   setOrder((prevOrder) => ({ ...prevOrder, [name]: value }));
+  // };
+  // const handleSort = () => {
+  //   if (order.sort === 'ASC') {
+  //     const sortedPlanets = filteredPlanets
+  //       .sort((a, b) => Number(a[order.column]) - Number(b[order.column]));
+  //     // return sortedPlanets;
+  //     setFilteredPlanets(sortedPlanets);
+  //   } if (order.sort === 'DESC') {
+  //     const sortedPlanets = filteredPlanets
+  //       .sort((a, b) => Number(b[order.column]) - Number(a[order.column]));
+  //     // return sortedPlanets;
+  //     setFilteredPlanets(sortedPlanets);
+  //   }
+  // };
 
   return (
     <div>
@@ -167,8 +167,11 @@ function Filters({ planets }) {
             </button>
             <OrderFilter
               columns={ columns }
-              handleOrderChange={ handleOrderChange }
-              handleSort={ handleSort }
+              // handleOrderChange={ handleOrderChange }
+              // handleSort={ handleSort }
+              // order = {order}
+              setFilteredPlanets={setFilteredPlanets}
+              filteredPlanets={filteredPlanets}
             />
 
             <button

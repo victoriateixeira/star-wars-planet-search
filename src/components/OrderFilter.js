@@ -1,7 +1,35 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 function OrderFilter(props) {
-  const { columns, handleSort, handleOrderChange } = props;
+  const { columns, filteredPlanets, setFilteredPlanets } = props;
+  const [order, setOrder] = useState({ column: 'population', sort: 'ASC' });
+
+  const handleOrderChange = ({ target: { value, name } }) => {
+    setOrder((prevOrder) => ({ ...prevOrder, [name]: value }));
+  };
+  const handleSort = () => {
+    if (order.sort === 'ASC') {
+      const sortedValidPlanets = filteredPlanets
+      .filter((planet) => planet[order.column] !== 'unknown')
+        .sort((a, b) => Number(a[order.column]) - Number(b[order.column]));
+        const unvalidPlanets = filteredPlanets.filter((planet) => planet[order.column] === 'unknown');
+        const allOrderedPlanets = [...sortedValidPlanets, ...unvalidPlanets];
+      // return sortedPlanets;
+      console.log(allOrderedPlanets);
+      setFilteredPlanets([...allOrderedPlanets]);
+    } if (order.sort === 'DESC') {
+      const sortedValidPlanets = filteredPlanets
+      .filter((planet) => planet[order.column] !== 'unknown')
+        .sort((a, b) => Number(b[order.column]) - Number(a[order.column]));
+        const unvalidPlanets = filteredPlanets.filter((planet) => planet[order.column] === 'unknown');
+        const allOrderedPlanets = [...sortedValidPlanets, ...unvalidPlanets];
+      // return sortedPlanets;
+      console.log(allOrderedPlanets);
+      setFilteredPlanets([...allOrderedPlanets]);
+    }
+  };
+
   return (
     <div>
       <select
@@ -34,6 +62,7 @@ function OrderFilter(props) {
           id="asc"
           name="sort"
           value="ASC"
+          // checked='true'
           data-testid="column-sort-input-asc"
           onClick={ handleOrderChange }
         />
@@ -64,8 +93,8 @@ function OrderFilter(props) {
 
 OrderFilter.propTypes = {
   columns: PropTypes.arrayOf.isRequired,
-  handleOrderChange: PropTypes.func.isRequired,
-  handleSort: PropTypes.func.isRequired,
+  filteredPlanets: PropTypes.arrayOf.isRequired,
+  setFilteredPlanets: PropTypes.func.isRequired,
 
 };
 export default OrderFilter;
