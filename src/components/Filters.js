@@ -170,53 +170,6 @@ function Filters({ planets }) {
               handleOrderChange={ handleOrderChange }
               handleSort={ handleSort }
             />
-            {/* <select
-              name="sort"
-              data-testid="column-sort"
-              id="sort"
-              onChange={ (e) => setSelectedSortColumn(e.target.value) }
-            > */}
-            {/* <option value="">All</option>
-              {
-                columns
-                  .map((sortColumn, index) => (
-                    <option key={ index } value={ sortColumn } name: 'column'>{sortColumn}</option>
-                  ))
-              }
-
-            </select>
-            <label htmlFor="asc">
-              {' '}
-              Ascendente
-              <input
-                type="radio"
-                id="asc"
-                name="sort"
-                value="ASC"
-                data-testid="column-sort-input-asc"
-                onClick={ (e) => setSelectedSortType(e.target.value) }
-              />
-
-            </label>
-            <label htmlFor="desc">
-              {' '}
-              Descendente
-              <input
-                type="radio"
-                id="desc"
-                name="sort"
-                value="DESC"
-                data-testid="column-sort-input-desc"
-                onClick={ (e) => setSelectedSortType(e.target.value) }
-              />
-            </label>
-            <button
-              type="button"
-              data-testid="column-sort-button"
-              onClick={ handleSort }
-            >
-              Ordenar
-            </button> */}
 
             <button
               type="button"
