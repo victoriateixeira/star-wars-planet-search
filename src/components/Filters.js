@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Table from './Table';
+import OrderFilter from './OrderFilter';
 
 function Filters({ planets }) {
   const columns = ['population',
@@ -18,9 +19,9 @@ function Filters({ planets }) {
   const [appliedFilters, setAppliedFilters] = useState([]);
   const [availableColumns, setAvailableColumns] = useState([...columns]);
   // const [availableSortColumns, setAvailableSortColumns] = useState([...columns]);
-  const [selectedSortColumn, setSelectedSortColumn] = useState('population');
-  const [selectedSortType, setSelectedSortType] = useState('');
-  // const [selectedSort, setSelectedSort] = useState([]);
+  // const [selectedSortColumn, setSelectedSortColumn] = useState('population');
+  // const [selectedSortType, setSelectedSortType] = useState('');
+  const [order, setOrder] = useState([]);
   useEffect(() => {
     const filteredName = planets.filter(
       (planet) => planet.name.toLowerCase().includes(searchName),
@@ -84,14 +85,20 @@ function Filters({ planets }) {
     setSearchName('');
     setAvailableColumns([...columns]);
   };
-
+  const handleOrderChange = ({ target: { value, name } }) => {
+    setOrder((prevOrder) => ({ ...prevOrder, [name]: value }));
+  };
   const handleSort = () => {
-    if (selectedSortType === 'ASC') {
-      setFilteredPlanets(filteredPlanets
-        .sort((a, b) => Number(a[selectedSortColumn]) - Number(b[selectedSortColumn])));
-    } else if (selectedSortType === 'DESC') {
-      setFilteredPlanets(filteredPlanets
-        .sort((a, b) => Number(b[selectedSortColumn]) - Number(a[selectedSortColumn])));
+    if (order.sort === 'ASC') {
+      const sortedPlanets = filteredPlanets
+        .sort((a, b) => Number(a[order.column]) - Number(b[order.column]));
+      // return sortedPlanets;
+      setFilteredPlanets(sortedPlanets);
+    } if (order.sort === 'DESC') {
+      const sortedPlanets = filteredPlanets
+        .sort((a, b) => Number(b[order.column]) - Number(a[order.column]));
+      // return sortedPlanets;
+      setFilteredPlanets(sortedPlanets);
     }
   };
 
@@ -158,17 +165,22 @@ function Filters({ planets }) {
             >
               Filtrar
             </button>
-            <select
+            <OrderFilter
+              columns={ columns }
+              handleOrderChange={ handleOrderChange }
+              handleSort={ handleSort }
+            />
+            {/* <select
               name="sort"
               data-testid="column-sort"
               id="sort"
               onChange={ (e) => setSelectedSortColumn(e.target.value) }
-            >
-              {/* <option value="">All</option> */}
+            > */}
+            {/* <option value="">All</option>
               {
                 columns
                   .map((sortColumn, index) => (
-                    <option key={ index } value={ sortColumn }>{sortColumn}</option>
+                    <option key={ index } value={ sortColumn } name: 'column'>{sortColumn}</option>
                   ))
               }
 
@@ -204,7 +216,8 @@ function Filters({ planets }) {
               onClick={ handleSort }
             >
               Ordenar
-            </button>
+            </button> */}
+
             <button
               type="button"
               data-testid="button-remove-filters"
