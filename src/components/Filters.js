@@ -170,8 +170,8 @@ function Filters({ planets }) {
               // handleOrderChange={ handleOrderChange }
               // handleSort={ handleSort }
               // order = {order}
-              setFilteredPlanets={setFilteredPlanets}
-              filteredPlanets={filteredPlanets}
+              setFilteredPlanets={ setFilteredPlanets }
+              filteredPlanets={ filteredPlanets }
             />
 
             <button

@@ -11,19 +11,21 @@ function OrderFilter(props) {
   const handleSort = () => {
     if (order.sort === 'ASC') {
       const sortedValidPlanets = filteredPlanets
-      .filter((planet) => planet[order.column] !== 'unknown')
+        .filter((planet) => planet[order.column] !== 'unknown')
         .sort((a, b) => Number(a[order.column]) - Number(b[order.column]));
-        const unvalidPlanets = filteredPlanets.filter((planet) => planet[order.column] === 'unknown');
-        const allOrderedPlanets = [...sortedValidPlanets, ...unvalidPlanets];
+      const unvalidPlanets = filteredPlanets
+        .filter((planet) => planet[order.column] === 'unknown');
+      const allOrderedPlanets = [...sortedValidPlanets, ...unvalidPlanets];
       // return sortedPlanets;
       console.log(allOrderedPlanets);
       setFilteredPlanets([...allOrderedPlanets]);
     } if (order.sort === 'DESC') {
       const sortedValidPlanets = filteredPlanets
-      .filter((planet) => planet[order.column] !== 'unknown')
+        .filter((planet) => planet[order.column] !== 'unknown')
         .sort((a, b) => Number(b[order.column]) - Number(a[order.column]));
-        const unvalidPlanets = filteredPlanets.filter((planet) => planet[order.column] === 'unknown');
-        const allOrderedPlanets = [...sortedValidPlanets, ...unvalidPlanets];
+      const unvalidPlanets = filteredPlanets
+        .filter((planet) => planet[order.column] === 'unknown');
+      const allOrderedPlanets = [...sortedValidPlanets, ...unvalidPlanets];
       // return sortedPlanets;
       console.log(allOrderedPlanets);
       setFilteredPlanets([...allOrderedPlanets]);
