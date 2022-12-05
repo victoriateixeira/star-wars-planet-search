@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useContext, useEffect, useState } from 'react';
+// import PropTypes from 'prop-types';
 import Table from './Table';
 import OrderFilter from './OrderFilter';
+import AppContext from '../context/AppContext';
 
-function Filters({ planets }) {
+function Filters() {
+  const { planets } = useContext(AppContext);
   const columns = ['population',
     'rotation_period',
     'orbital_period',
@@ -22,6 +24,10 @@ function Filters({ planets }) {
   // const [selectedSortColumn, setSelectedSortColumn] = useState('population');
   // const [selectedSortType, setSelectedSortType] = useState('');
   // const [order, setOrder] = useState({column: 'population', sort: 'ASC'});
+  useEffect(() => {
+    console.log('effect');
+    setFilteredPlanets([...planets]);
+  }, [planets]);
   useEffect(() => {
     const filteredName = planets.filter(
       (planet) => planet.name.toLowerCase().includes(searchName),
@@ -211,7 +217,7 @@ function Filters({ planets }) {
   );
 }
 
-Filters.propTypes = {
-  planets: PropTypes.arrayOf.isRequired,
-};
+// Filters.propTypes = {
+//   planets: PropTypes.arrayOf.isRequired,
+// };
 export default Filters;
